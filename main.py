@@ -15,7 +15,6 @@ Abteilungen = [
     "Produktion"
 ]
 
-
 def pruefe_passwort(string):
     if not re.search(r"[A-Z]", string):
         return False
@@ -31,13 +30,11 @@ def pruefe_passwort(string):
 
     return True
 
-
 def selbes_passwort(pw1, pw2):
     if pw1 == pw2:
         return True
     else:
         return False
-
 
 def submit_action():
     vorname = firstname_entry.get()
@@ -47,18 +44,18 @@ def submit_action():
     confirm_password = confirm_password_entry.get()
 
     if abteilung == "Abteilungen" or vorname == "" or nachname == "" or passwort == "":
-        popup_message("Fehler", "Bitte füllen sie alle Felder aus.")
+        messagebox.showinfo("Fehler", "Bitte füllen sie alle Felder aus.")
         return
 
     elif not selbes_passwort(passwort, confirm_password):
-        popup_message("Fehler", "Passwörter stimmen nicht überein")
+        messagebox.showinfo("Fehler", "Passwörter stimmen nicht überein")
 
     elif not pruefe_passwort(passwort):
-        popup_message("Fehler", "Passwort entspricht nicht den Regeln:\n"
-                                "- mindestens ein kleiner Buchstabe\n"
-                                "- mindestens ein großer Buchstabe\n"
-                                "- mindestens eine Zahl\n"
-                                "- mindestens 10 Zeichen")
+        messagebox.showinfo("Fehler", "Passwort entspricht nicht den Regeln:\n"
+                                      "- mindestens ein kleiner Buchstabe\n"
+                                      "- mindestens ein großer Buchstabe\n"
+                                      "- mindestens eine Zahl\n"
+                                      "- mindestens 10 Zeichen")
         return
     else:
         benutzername = f"{nachname}.{vorname[0]}"
@@ -66,11 +63,6 @@ def submit_action():
         ma_id = "1"
         mitarbeiter_id_label.config(text=f"Mitarbeiter_ID = {ma_id}")
         benutzername_label.config(text=f"Benutzername = {benutzername}")
-
-
-def popup_message(title, message):
-    messagebox.showinfo(title, message)
-
 
 root = Tk()
 root.title("Benutzerverwaltung")
