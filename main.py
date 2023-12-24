@@ -14,6 +14,7 @@ Abteilungen = [
     "Produktion"
 ]
 
+
 def pruefe_passwort(string):
     if not re.search(r"[A-Z]", string):
         return False
@@ -30,15 +31,27 @@ def pruefe_passwort(string):
     return True
 
 
+def selbes_passwort(pw1, pw2):
+    if pw1 == pw2:
+        return True
+    else:
+        return False
+
+
 def submit_action():
     vorname = firstname_entry.get()
     nachname = lastname_entry.get()
     abteilung = combo.get()
-    passwort = passwort_entry.get()
+    passwort = password_entry.get()
+    confirm_password = confirm_password_entry.get()
 
     if abteilung == "Abteilungen" or vorname == "" or nachname == "" or passwort == "":
         popup_message("Fehler", "Bitte füllen sie alle Felder aus.")
         return
+
+    elif not selbes_passwort(passwort, confirm_password):
+        popup_message("Fehler", "Passwörter stimmen nicht überein")
+
     elif not pruefe_passwort(passwort):
         popup_message("Fehler", "Passwort entspricht nicht den Regeln:\n"
                                 "- mindestens ein kleiner Buchstabe\n"
@@ -60,30 +73,34 @@ def popup_message(title, message):
 
 root = Tk()
 root.title("Benutzerverwaltung")
+root.resizable(False, False)
 large_font = ('Arial', 14)
 
 Label(root, text="Vorname", font=large_font).grid(row=0, column=0, sticky=W, padx=10, pady=5)
 Label(root, text="Nachname", font=large_font).grid(row=1, column=0, sticky=W, padx=10, pady=5)
 Label(root, text="Abteilung", font=large_font).grid(row=2, column=0, sticky=W, padx=10, pady=5)
 Label(root, text="Passwort", font=large_font).grid(row=3, column=0, sticky=W, padx=10, pady=5)
+Label(root, text="confirm Passwort", font=large_font).grid(row=4, column=0, sticky=W, padx=10, pady=5)
 
 firstname_entry = Entry(root, font=large_font)
 lastname_entry = Entry(root, font=large_font)
 combo = StringVar()
 combo.set(Abteilungen[0])
 drop = OptionMenu(root, combo, *Abteilungen)
-passwort_entry = Entry(root, show="*", font=large_font)
+password_entry = Entry(root, show="*", font=large_font)
+confirm_password_entry = Entry(root, show="*", font=large_font)
 
 firstname_entry.grid(row=0, column=1, sticky=W, padx=10, pady=5)
 lastname_entry.grid(row=1, column=1, sticky=W, padx=10, pady=5)
 drop.grid(row=2, column=1, sticky=W, padx=10, pady=5)
-passwort_entry.grid(row=3, column=1, sticky=W, padx=10, pady=5, columnspan=2)
+password_entry.grid(row=3, column=1, sticky=W, padx=10, pady=5)
+confirm_password_entry.grid(row=4, column=1, sticky=W, padx=10, pady=5)
 
 submit_button = Button(root, text="Abschicken", command=submit_action)
-submit_button.grid(row=4, column=1, pady=10)
+submit_button.grid(row=7, column=1, pady=10)
 
 exit_button = Button(root, text="Beenden", command=root.destroy)
-exit_button.grid(row=4, column=0, pady=10)
+exit_button.grid(row=7, column=0, pady=10)
 
 mitarbeiter_id_label = Label(root, text="")
 mitarbeiter_id_label.grid(row=5, column=0, columnspan=2)
