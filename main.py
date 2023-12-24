@@ -47,10 +47,11 @@ def submit_action():
                                 "- mindestens 10 Zeichen")
         return
     else:
-        # Schicke Vorname, Nachmane, Abteilung, Passwort an das Backend
+        benutzername = f"{nachname}.{vorname[0]}"
+        # Schicke Vorname, Nachmane, Benutzername, Abteilung und hashed Passwort an das Backend
         ma_id = "1"
         mitarbeiter_id_label.config(text=f"Mitarbeiter_ID = {ma_id}")
-        benutzername_label.config(text=f"Benutzername = {nachname}.{vorname[0]}")
+        benutzername_label.config(text=f"Benutzername = {benutzername}")
 
 
 def popup_message(title, message):
