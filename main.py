@@ -55,7 +55,7 @@ def submit_action():
                                       "- mindestens ein kleiner Buchstabe\n"
                                       "- mindestens ein großer Buchstabe\n"
                                       "- mindestens eine Zahl\n"
-                                      "- mindestens 10 Zeichen")
+                                      "- mindestens 12 Zeichen")
         return
     else:
         benutzername = f"{nachname}.{vorname[0]}"
