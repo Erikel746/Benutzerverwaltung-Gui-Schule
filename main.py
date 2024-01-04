@@ -25,7 +25,7 @@ def pruefe_passwort(string):
     if not re.search(r"\d", string):
         return False
 
-    if len(string) <= 10:
+    if len(string) <= 12:
         return False
 
     return True
