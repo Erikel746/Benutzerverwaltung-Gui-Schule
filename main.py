@@ -16,25 +16,22 @@ Abteilungen = [
 ]
 
 def pruefe_passwort(string):
-    if not re.search(r"[A-Z]", string):
+    if len(re.findall(r"[A-Z]", string)) < 2:
         return False
 
-    if not re.search(r"[a-z]", string):
+    if len(re.findall(r"[a-z]", string)) < 2:
         return False
 
-    if not re.search(r"\d", string):
+    if len(re.findall(r"\d", string)) < 2:
         return False
 
-    if len(string) <= 12:
+    if len(re.findall(r"[!@#$%^&*()-_=+\[\]{}|;:'\",.<>/?]", string)) < 2:
+        return False
+
+    if not (12 <= len(string) <= 16):
         return False
 
     return True
-
-def selbes_passwort(pw1, pw2):
-    if pw1 == pw2:
-        return True
-    else:
-        return False
 
 def submit_action():
     vorname = firstname_entry.get()
@@ -48,10 +45,11 @@ def submit_action():
 
     elif not pruefe_passwort(passwort):
         messagebox.showinfo("Fehler", "Passwort entspricht nicht den Regeln:\n"
-                                      "- mindestens ein kleiner Buchstabe\n"
-                                      "- mindestens ein großer Buchstabe\n"
-                                      "- mindestens eine Zahl\n"
-                                      "- mindestens 12 Zeichen")
+                                      "- mindestens zwei kleine Buchstabe\n"
+                                      "- mindestens zwei große Buchstabe\n"
+                                      "- mindestens zwei Zahlen\n"
+                                      "- mindestens zwei Sonderzeichen\n"
+                                      "- 12 bis 16 Zeichen")
         return
     else:
         benutzername = f"{nachname}.{vorname[0]}"
