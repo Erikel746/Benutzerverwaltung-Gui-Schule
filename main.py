@@ -41,14 +41,10 @@ def submit_action():
     nachname = lastname_entry.get()
     abteilung = combo.get()
     passwort = password_entry.get()
-    confirm_password = confirm_password_entry.get()
 
     if abteilung == "Abteilungen" or vorname == "" or nachname == "" or passwort == "":
         messagebox.showinfo("Fehler", "Bitte füllen sie alle Felder aus.")
         return
-
-    elif not selbes_passwort(passwort, confirm_password):
-        messagebox.showinfo("Fehler", "Passwörter stimmen nicht überein")
 
     elif not pruefe_passwort(passwort):
         messagebox.showinfo("Fehler", "Passwort entspricht nicht den Regeln:\n"
@@ -73,7 +69,6 @@ Label(root, text="Vorname", font=large_font).grid(row=0, column=0, sticky=W, pad
 Label(root, text="Nachname", font=large_font).grid(row=1, column=0, sticky=W, padx=10, pady=5)
 Label(root, text="Abteilung", font=large_font).grid(row=2, column=0, sticky=W, padx=10, pady=5)
 Label(root, text="Passwort", font=large_font).grid(row=3, column=0, sticky=W, padx=10, pady=5)
-Label(root, text="confirm Passwort", font=large_font).grid(row=4, column=0, sticky=W, padx=10, pady=5)
 
 firstname_entry = Entry(root, font=large_font)
 lastname_entry = Entry(root, font=large_font)
@@ -81,13 +76,11 @@ combo = StringVar()
 combo.set(Abteilungen[0])
 drop = OptionMenu(root, combo, *Abteilungen)
 password_entry = Entry(root, show="*", font=large_font)
-confirm_password_entry = Entry(root, show="*", font=large_font)
 
 firstname_entry.grid(row=0, column=1, sticky=W, padx=10, pady=5)
 lastname_entry.grid(row=1, column=1, sticky=W, padx=10, pady=5)
 drop.grid(row=2, column=1, sticky=W, padx=10, pady=5)
 password_entry.grid(row=3, column=1, sticky=W, padx=10, pady=5)
-confirm_password_entry.grid(row=4, column=1, sticky=W, padx=10, pady=5)
 
 submit_button = Button(root, text="Abschicken", command=submit_action)
 submit_button.grid(row=7, column=1, pady=10)
